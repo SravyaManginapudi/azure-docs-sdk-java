@@ -1,0 +1,19 @@
+name: Sandvik Splunk Push Action sv_splunk_automation
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code to Runner with Sparse-Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.before }}
+          path: repo
+      - name: Sparse-Checkout
+        uses: actions/checkout@v2
+        with:
+          path: repo
+          fetch-depth: 1
+          ref: ${{ github.sha }}
+          sparse-checkout: docs-ref-services/latest/cognitiveservices
